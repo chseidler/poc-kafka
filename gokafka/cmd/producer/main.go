@@ -20,7 +20,10 @@ func main() {
 
 func NewKafkaProducer() *kafka.Producer {
 	configMap := &kafka.ConfigMap{
-		"bootstrap.servers": "gokafka-kafka-1:9092",
+		"bootstrap.servers":   "gokafka-kafka-1:9092",
+		"delivery.timeout.ms": "10",   // if 0 -> unlimited
+		"acks":                "all",  // 0, 1 or all
+		"enable.idempotence":  "true", // if true, acks must be all
 	}
 	p, err := kafka.NewProducer(configMap)
 	if err != nil {
@@ -54,3 +57,7 @@ func DeliveryReport(deliveryChan chan kafka.Event) {
 		}
 	}
 }
+
+// CMD kafka
+// kafka-topics --create --bootstrap-server:9092 --topic=teste --partitions=3
+// kafka-console-consumer --bootstrap-server=localhost:9092 --topic=teste
