@@ -59,5 +59,5 @@ func DeliveryReport(deliveryChan chan kafka.Event) {
 }
 
 // CMD kafka
-// kafka-topics --create --bootstrap-server:9092 --topic=teste --partitions=3
+// kafka-topics --create --bootstrap-server=localhost:9092 --topic=teste --partitions=3
 // kafka-console-consumer --bootstrap-server=localhost:9092 --topic=teste
